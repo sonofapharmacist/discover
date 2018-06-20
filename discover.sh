@@ -5285,6 +5285,48 @@ echo
 
 ##############################################################################################################
 
+f_discoroundup(){
+# tar up the results into the working folder and gather subdomains into one spot after batch disco scans
+
+echo
+echo
+echo -n "Domains location: "
+read -e domains
+echo
+echo
+echo -n "Full path and name for your tar (the gz will be added later): "
+read -e targz
+echo
+echo
+echo -n "Full PATH ONLY to where you want your subdomains found listed (no trailing / please): "
+read -e subdomains
+
+tar cvf $targz --files-from /dev/null
+
+for line in $(cat $domains)
+do 
+	tar rvf $targz  $home/data/$line/
+	touch $subdomains/subdomains.txt
+	cat $home/data/$line/data/subdomains.htm >> $subdomains/subdomains.txt
+	sort -u $subdomains/subdomains.txt
+	uniq -u $subdomains/subdomains.txt > $subdomains/tmp.txt
+	rm -rf $subdomains/subdomains.txt
+	touch $subdomains/subdomains.txt
+	cat $subdomains/tmp.txt >> $subdomains/subdomains.txt
+	rm -rf $subdomains/tmp.txt
+	
+done
+
+gzip $targz
+
+echo
+echo
+echo "Your tar.gz is available at $targz.gz"
+echo
+echo "and the subdomains are available at $subdomains/subdomains.txt"
+}
+##############################################################################################################
+
 f_main(){
 clear
 f_banner
@@ -5318,7 +5360,8 @@ echo "15. Generate a malicious payload"
 echo "16. Start a Metasploit listener"
 echo "17. Update"
 echo "18. Domain Batch"
-echo "19. Exit"
+echo "19. Domain Batch scans Round Up"
+echo "20. Exit"
 
 echo
 echo -n "Choice: "
@@ -5343,7 +5386,8 @@ case $choice in
      16) f_listener;;
      17) f_errorOSX; $discover/update.sh && exit;;
      18) f_domainbatch;;
-	 19) clear && exit;;
+     19) f_discoroundup;;
+	 20) clear && exit;;
      99) f_errorOSX; f_updates;;
      *) f_error;;
 esac
