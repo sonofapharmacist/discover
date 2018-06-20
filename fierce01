@@ -6,6 +6,12 @@
 # Threading and additions by IceShaman
 #########################################
 
+#########################################
+# Killed the prompt for "File already exists, do you want to overwrite it? [Y|N] "
+# to allow for uninterupted active scans during loopback
+# sonofapharmacist
+#########################################
+
 use strict;
 use Net::hostent;
 use Net::DNS;
