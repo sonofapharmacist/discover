@@ -209,17 +209,10 @@ domain=$line
  if [[ -z $domain ]]; then
 	  f_error
  fi
-#f_domain01
-#f_domain01(){
 clear
 f_banner
 echo -e "\x1B[1;34mRECON\x1B[0m"
 echo
-#echo "1.  Passive"
-#echo "2.  Active"
-#echo "3.  Previous menu"
-echo
-#echo -n "Choice: "
  clear
  f_banner
 
@@ -231,33 +224,21 @@ echo
  echo
  echo $medium
  echo
- #echo "Usage"
- echo
- #echo "Company: Target"
  echo "Domain:  $domain"
  echo
  echo $medium
  echo
- #echo -n "Company: "
- #read company
  company=$domain
 
- # Check for no answer
  if [[ -z $company ]]; then
 	  f_error
  fi
 
- #echo -n "Domain:  "
- #read domain
-
- # Check for no answer
  if [[ -z $domain ]]; then
 	  f_error
  fi
 
  rundate=`date +%B' '%d,' '%Y`
-
- # If folder doesn't exist, create it
  if [ ! -d $home/data/$domain ]; then
 	  cp -R $discover/report/ $home/data/$domain
 	  sed -i "s/#COMPANY#/$company/" $home/data/$domain/index.htm
@@ -266,17 +247,6 @@ echo
  fi
 
  echo
- #echo -n "Do you have a list of names from salesforce to import? (y/N) "
- #read answer
- #answrsales="n"
- #if [ "$answrsales" == "y" ]; then
-	  #f_location
-	  #echo "last_name#first_name#title" > $home/data/names.csv
-	  #cat $location | sed 's/, /#/' | sed 's/  /#/' | tr -s ' ' | tr -d '\t' | sed 's/;/#/g; s/#$//g' >> $home/data/names.csv
-	  #cat $discover/resource/recon-ng-import-names.rc > passive2.rc
- #fi
-
- # Number of tests
  total=31
 
  companyurl=$( printf "%s\n" "$company" | sed 's/ /%20/g;s/\&/%26/g;s/\,/%2C/g' )
@@ -552,20 +522,6 @@ echo
  echo
  echo "netcraft.com              (28/$total) bad"
  echo "     Actively working on alternative"
- # wget -q https://toolbar.netcraft.com/site_report?url=http://www.$domain -O tmp
-
- # # Remove lines from FOO to the second BAR
- # awk '/DOCTYPE/{f=1} (!f || f>2){print} (f && /\/form/){f++}' tmp > tmp2
- # egrep -v '(Background|Hosting country|the-world-factbook)' tmp2 | sed 's/Refresh//g' > tmp3
-
- # # Find lines that contain FOO, and delete to the end of file
- # sed '/security_table/,${D}' tmp3 | sed 's/<h2>/<h4>/g' | sed 's/<\/h2>/<\/h4>/g' > tmp4
-
- # # Compress blank lines
- # sed /^$/d tmp4 >> $home/data/$domain/pages/netcraft.htm
- # echo >> $home/data/$domain/pages/netcraft.htm
- # echo '</body>' >> $home/data/$domain/pages/netcraft.htm
- # echo '</html>' >> $home/data/$domain/pages/netcraft.htm
 
  echo
  echo "ultratools.com            (29/$total)"
@@ -941,47 +897,6 @@ echo
 
  ##############################################################
 
- #f_runlocally
-
- #$web &
- #sleep 4
- #$web https://www.google.com/search?site=\&tbm=isch\&source=hp\&q=$companyurl%2Blogo &
- #sleep 2
-
- # File types
- #$web https://www.google.com/#q=site%3A$domain+filetype%3Adoc+OR+filetype%3Adocx &
- #sleep 2
- ##$web https://www.google.com/#q=site%3A$domain+filetype%3Appt+OR+filetype%3Apptx &
- #sleep 2
- #$web https://www.google.com/#q=site%3A$domain+filetype%3Axls+OR+filetype%3Axlsx &
- #sleep 2
- #$web https://www.google.com/#q=site%3A$domain+filetype%3Atxt &
- #sleep 2
-
- #$web https://www.google.com/#q=site%3A$domain+inurl:admin &
- #sleep 2
- #$web https://www.google.com/#q=site%3A$domain+inurl:login &
- #sleep 2
-
- #$web https://www.google.com/#q=site%3A$domain+%22index+of/%22+%22parent+directory%22 &
- #sleep 2
- #$web https://www.google.com/#q=site%3A$domain+%22internal+use+only%22 &
- #sleep 2
-
- #$web https://www.google.com/#q=site%3Apastebin.com+intext:%40$domain &
- #sleep 2
- #$web http://api.hackertarget.com/pagelinks/?q=$domain &
- #sleep 2
-
- #$web https://dockets.justia.com/search?parties=%22$companyurl%22&cases=mostrecent &
- #sleep 2
- #$web http://www.reuters.com/finance/stocks/lookup?searchType=any\&search=$companyurl &
- #sleep 2
- #$web https://www.sec.gov/cgi-bin/browse-edgar?company=$companyurl\&owner=exclude\&action=getcompany &
- #sleep 2
- #$web https://www.ssllabs.com/ssltest/analyze.html?d=$domain\&hideResults=on\&latest &
- #sleep 2
- #$web $home/data/$domain/index.htm &
  echo
  echo
 
@@ -997,22 +912,6 @@ echo
  echo
  echo $medium
  echo
- #echo "Usage: target.com"
- #echo
- #echo -n "Domain: "
- #read domain
-#domain=$line
- # Check for no answer
- #if [[ -z $domain ]]; then
-#	  f_error
- #fi
-
- # If folder doesn't exist, create it
- #if [ ! -d $home/data/$domain ]; then
-	#  cp -R $discover/report/ $home/data/$domain
-	 # sed 's/REPLACEDOMAIN/'$domain'/g' $home/data/$domain/index.htm > tmp
-	  #mv tmp $home/data/$domain/index.htm
-# fi
  echo
  echo
  echo "active scans for $domain..."
@@ -1062,14 +961,12 @@ echo
 
  echo
  echo "Fierce (~5 min)           (5/$total)"
- #if [ -f /usr/share/fierce/hosts.txt ]; then
- #     fierce -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
- #fi
- fierce01 -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
+# suppressed the question of existing fierce hosts file by using custom fierce file
+ /opt/discover/fierce01 -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
 
  # PTF
  if [ -f /pentest/intelligence-gathering/fierce/hosts.txt ]; then
-	  fierce01 -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
+	  /opt/discover/fierce01 -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
  fi
 
  sed -n '/Now performing/,/Subnets found/p' tmp4 | grep $domain | awk '{print $2 " " $1}' | column -t | sort -u > subdomains-fierce
@@ -1088,13 +985,7 @@ echo
  grep -E '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' tmp | egrep -v '(-|=|:|1.1.1.1|6.9.6.9|127.0.0.1)' | $sip > hosts
 
  echo
- echo "Loadbalancing             (6/$total) not today!"
- #lbd $domain > tmp 2>/dev/null
- # Remove first 5 lines & clean up
- #sed '1,5d' tmp | sed 's/DNS-Loadbalancing: NOT FOUND/DNS-Loadbalancing:\nNOT FOUND\n/g' | sed 's/\[Date\]: /\[Date\]:\n/g' | sed 's/\[Diff\]: /\[Diff\]:\n/g' > tmp2
- # Replace the 10th comma with a new line & remove leading whitespace from each line
- #sed 's/\([^,]*,\)\{9\}[^,]*,/&\n/g' tmp2 | sed 's/^[ \t]*//' | sed 's/, NOT/\nNOT/g' | grep -v 'NOT use' > loadbalancing
-
+ echo "Loadbalancing             (6/$total) not using lbd during batch."
  echo
  echo "Web Application Firewall  (7/$total)"
  wafw00f -a http://www.$domain > tmp
@@ -1257,12 +1148,12 @@ clear
 f_banner
 echo -e "\x1B[1;34mRECON\x1B[0m"
 echo
-#echo "1.  Passive"
-#echo "2.  Active"
-#echo "3.  Previous menu"
+echo "1.  Passive"
+echo "2.  Active"
+echo "3.  Previous menu"
 echo
 echo -n "Choice: "
-choice="1"
+read choice
 
 case $choice in
      1)
@@ -1286,7 +1177,6 @@ case $choice in
      echo
      echo -n "Company: "
      read company
-	 company=$domain
 
      # Check for no answer
      if [[ -z $company ]]; then
@@ -1314,7 +1204,7 @@ case $choice in
      echo
      echo -n "Do you have a list of names from salesforce to import? (y/N) "
      read answer
-	 answer="n"
+
      if [ "$answer" == "y" ]; then
           f_location
           echo "last_name#first_name#title" > $home/data/names.csv
@@ -1323,9 +1213,9 @@ case $choice in
      fi
 
      # Number of tests
-     total=31
+     total=28
 
-     companyurl=$( printf "%s\n" "$company" | sed 's/ /%20/g;s/\&/%26/g;s/\,/%2C/g' )
+     companyurl=$( printf "%s\n" "$company" | sed 's/ /%20/g; s/\&/%26/g; s/\,/%2C/g' )
 
      echo
      echo $medium
@@ -1343,7 +1233,7 @@ case $choice in
                xml_grep 'email' tmp2.xml --text_only >> tmp
           done < zurls.txt
 
-          cat tmp | sort -u > zarin-emails
+          cat tmp | tr '[A-Z]' '[a-z]' | sort -u > zarin-emails
      fi
 
      rm tmp*
@@ -1355,7 +1245,7 @@ case $choice in
           done < zhandles.txt
 
           egrep -v '(@|Network|Telecom)' tmp | sed 's/Name:           //g' | tr '[A-Z]' '[a-z]' | sed 's/\b\(.\)/\u\1/g' > tmp2
-          awk -F", " '{print $2,$1}' tmp2 | sed 's/  / /g' | sort -u > zarin-names
+          awk -F", " '{print $2,$1}' tmp2 | sed 's/  / /g' | grep -v 'Admin' | sort -u > zarin-names
      fi
 
      rm zurls.txt zhandles.txt 2>/dev/null
@@ -1411,7 +1301,7 @@ case $choice in
      echo
 
      echo "goog-mail                 (6/$total)"
-     $discover/mods/goog-mail.py $domain > zgoog-mail
+     $discover/mods/goog-mail.py $domain | grep -v 'cannot' | tr '[A-Z]' '[a-z]' > zgoog-mail
      # Remove all empty files
      find -type f -empty -exec rm {} +
      echo
@@ -1437,44 +1327,39 @@ case $choice in
           theharvester="/usr/share/theharvester/theHarvester.py"
      fi
 
-     echo "     Baidu                (9/$total)"
-     #$theharvester -d $domain -b baidu | grep $domain > zbaidu
-     echo "     Bing                 (10/$total)"
-     $theharvester -d $domain -b bing | grep $domain | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zbing
-     echo "     Dogpilesearch        (11/$total)"
-     $theharvester -d $domain -b dogpilesearch | grep $domain > zdogpilesearch
-     echo "     Google               (12/$total)"
-     $theharvester -d $domain -b google | grep $domain | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zgoogle
-     echo "     Google CSE           (13/$total)"
+     echo "     Bing                 (9/$total)"
+     $theharvester -d $domain -b bing | grep $domain | grep -v 'Starting' | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zbing
+     echo "     Dogpilesearch        (10/$total)"
+     $theharvester -d $domain -b dogpilesearch -l 100 | grep $domain | grep -v 'Starting' > zdogpilesearch
+     echo "     Google               (11/$total)"
+     $theharvester -d $domain -b google | grep $domain | grep -v 'Starting' | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zgoogle
+     echo "     Google CSE           (12/$total)"
      $theharvester -d $domain -b googleCSE | sed -n '/---/,$p' | egrep -v '(-|found)' | sed '/^$/d' > zgoogleCSE
-     echo "     Google+              (14/$total)"
+     echo "     Google+              (13/$total)"
      $theharvester -d $domain -b googleplus | sed -n '/===/,$p' | grep -v '=' | sed 's/- Google+//g' | sort -u > zgoogleplus
-     echo "     Google Profiles	  (15/$total)"
+     echo "     Google Profiles	  (14/$total)"
      $theharvester -d $domain -b google-profiles | sed -n '/---/,$p' | grep -v '-' | sort -u > zgoogle-profiles
-     echo "     Jigsaw               (16/$total)"
-     $theharvester -d $domain -b jigsaw | sed -n '/===/,$p' | grep -v '=' > zjigsaw
-     echo "     LinkedIn             (17/$total)"
-     $theharvester -d "$company" -b linkedin | sed -n '/===/,$p' | grep -v '=' | sed 's/[^ ]\+/\L\u&/g' | sed 's/ - .*$//g' | sort -u > zlinkedin
-     $theharvester -d $domain -b linkedin | sed -n '/===/,$p' | grep -v '=' | sed 's/[^ ]\+/\L\u&/g' | sort -u > zlinkedin2
-     echo "     PGP                  (18/$total)"
-     $theharvester -d $domain -b pgp | grep $domain | tr '[A-Z]' '[a-z]' | sort -u > zpgp
-     echo "     Yahoo                (19/$total)"
-     $theharvester -d $domain -b yahoo  | grep $domain | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zyahoo
-     echo "     All                  (20/$total)"
-     $theharvester -d $domain -b all  | grep $domain | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zall
+     echo "     LinkedIn             (15/$total)"
+     $theharvester -d "$company" -b linkedin | sed -n '/--/,$p' | sed '/^-/d' | sed 's/ -.*//' | sort -u > zlinkedin
+     $theharvester -d $domain -b linkedin | sed -n '/--/,$p' | sed '/^-/d' | sed 's/ -.*//' | sort -u > zlinkedin2
+     echo "     PGP                  (16/$total)"
+     $theharvester -d $domain -b pgp > tmp
+     cat tmp | grep $domain | grep -v 'Starting' | tr '[A-Z]' '[a-z]' | sort -u > zpgp
+     echo "     Yahoo                (17/$total)"
+     $theharvester -d $domain -b yahoo -l 100 | grep $domain | grep -v 'Starting' | sed 's/:/ /g' | tr '[A-Z]' '[a-z]' | column -t | sort -u > zyahoo
 
-     rm debug*
+     rm debug* stash.sqlite
      # Remove all empty files
      find -type f -empty -exec rm {} +
      echo
 
-     echo "Metasploit                (21/$total)"
+     echo "Metasploit                (18/$total)"
      msfconsole -x "use auxiliary/gather/search_email_collector; set DOMAIN $domain; run; exit y" > tmp 2>/dev/null
      grep @$domain tmp | awk '{print $2}' | grep -v '%' | grep -Fv '...@' > zmsf
      rm tmp 2>/dev/null
      echo
 
-     echo "URLCrazy                  (22/$total)"
+     echo "URLCrazy                  (19/$total)"
      urlcrazy $domain > tmp
      sed -n '/Character/,$p' tmp | sed 's/AUSTRALIA/Australia/g; s/AUSTRIA/Austria/g; s/BAHAMAS/Bahamas/g; s/BANGLADESH/Bangladesh/g; s/BELGIUM/Belgium/g; s/BULGARIA/Bulgaria/g; s/CANADA/Canada/g; s/CAYMAN ISLANDS/Cayman Islands/g; s/CHILE/Chile/g; s/CHINA/China/g; s/COLOMBIA/Columbia/g; s/COSTA RICA/Costa Rica/g; s/CZECH REPUBLIC/Czech Republic/g; s/DENMARK/Denmark/g; s/DOMINICAN REPUBLIC/Dominican Republic/g; s/EUROPEAN UNION/European Union/g; s/FINLAND/Finland/g; s/FRANCE/France/g; s/GERMANY/Germany/g; s/HONG KONG/Hong Kong/g; s/HUNGARY/Hungary/g; s/INDIA/India/g; s/INDONESIA/Indonesia/g; s/IRELAND/Ireland/g; s/ISRAEL/Israel/g; s/ITALY/Italy/g; s/JAPAN/Japan/g; s/KOREA REPUBLIC OF/Republic of Korea/g; s/LUXEMBOURG/Luxembourg/g; s/NETHERLANDS/Netherlands/g; s/NORWAY/Norway/g; s/POLAND/Poland/g; s/PUERTO RICO/Puerto Rico/g; s/RUSSIAN FEDERATION/Russia            /g; s/SAUDI ARABIA/Saudi Arabia/g; s/SINGAPORE/Singapore/g; s/SPAIN/Spain/g; s/SWEDEN/Sweden/g; s/SWITZERLAND/Switzerland/g; s/TAIWAN REPUBLIC OF China (ROC)/Taiwan                        /g; s/THAILAND/Thailand/g; s/TURKEY/Turkey/g; s/UKRAINE/Ukraine/g; s/UNITED KINGDOM/United Kingdom/g; s/UNITED STATES/United States/g; s/VIRGIN ISLANDS (BRITISH)/Virgin Islands          /g; s/ROMANIA/Romania/g; s/SLOVAKIA/Slovakia/g; s/?/ /g' > tmp2
      # Remove the last column
@@ -1487,12 +1372,14 @@ case $choice in
 
      echo
      echo "Whois"
-     echo "     Domain               (23/$total)"
+     echo "     Domain               (20/$total)"
      whois -H $domain > tmp 2>/dev/null
      # Remove leading whitespace
      sed 's/^[ \t]*//' tmp > tmp2
      # Clean up
-     egrep -v '(#|%|<a|=-=-=-=|;|Access may be|Additionally|Afilias except|and DNS Hosting|and limitations of|any use of|Be sure to|at the end of|By submitting an|by the terms|can easily change|circumstances will|clientDeleteProhibited|clientTransferProhibited|clientUpdateProhibited|company may be|complaint will|contact information|Contact us|Copy and paste|currently set|database|data contained in|data presented in|date of|details go to|dissemination|Domaininfo AB|Domain Management|Domain names in|Domain status: ok|enable high|except as reasonably|failure to|facsimile of|for commercial purpose|for detailed information|For information for|for information purposes|For more information|for the sole|Get Noticed|Get a FREE|guarantee its|HREF|In Europe|In most cases|in obtaining|in the address|includes restrictions|including spam|information is provided|is not the|is providing|JPRS database provides|Learn how|Learn more|makes this information|MarkMonitor|mining this data|minute and one|modify existing|modify these terms|must be sent|name cannot|NamesBeyond|not to use|Note: This|NOTICE|obtaining information about|of Moniker|of this data|or hiding any|or otherwise support|other use of|own existing customers|Please be advised|Please note|policy|prior written consent|privacy is|Problem Reporting System|Professional and|prohibited without|Promote your|protect the|Public Interest|queries or|Register your|Registrars|registration record|repackaging,|responsible for|See Business Registration|server at|solicitations via|sponsorship|Status|support questions|support the transmission|telephone, or facsimile|that apply to|that you will|the right| The data is|The fact that|the transmission|The Trusted Partner|This listing is|This feature is|This information|This service is|to collect or|to entities|to report any|To suppress Japanese|transmission of mass|UNITED STATES|United States|unsolicited advertising|Users may|Version 6|via e-mail|Visit AboutUs.org|while believed|will use this|with many different|with no guarantee|We reserve the|Whois|whois_guidanceyou agree|You may not)' tmp2 > tmp3
+     egrep -v '(#|%|<a|=-=-=-=|;|Access may be|Additionally|Afilias except|and DNS Hosting|and limitations of|any use of|Be sure to|at the end of|By
+submitting an|by the terms|can easily change|circumstances will|clientDeleteProhibited|clientTransferProhibited|clientUpdateProhibited|company may
+be|ccompilation|complaint will|contact information|Contact us|Copy and paste|currently set|database|data contained in|data presented in|date of|details go to|dissemination|Domaininfo AB|Domain Management|Domain names in|Domain status: ok|enable high|except as reasonably|failure to|facsimile of|for commercial purpose|for detailed information|For information for|for information purposes|For more information|for the sole|Get Noticed|Get a FREE|guarantee its|HREF|In Europe|In most cases|in obtaining|in the address|includes restrictions|including spam|information is provided|is not the|is providing|JPRS database provides|Learn how|Learn more|makes this information|MarkMonitor|mining this data|minute and one|modify existing|modify these terms|must be sent|name cannot|NamesBeyond|not to use|Note: This|NOTICE|obtaining information about|of Moniker|of this data|or hiding any|or otherwise support|other use of|own existing customers|Please be advised|Please note|policy|prior written consent|privacy is|Problem Reporting System|Professional and|prohibited without|Promote your|protect the|Public Interest|queries or|receiving|Register your|Registrars|registration record|repackaging,|reserves the|responsible for|See Business Registration|server at|solicitations via|sponsorship|Status|support questions|support the transmission|telephone, or facsimile|that apply to|that you will|the right| The data is|The fact that|the transmission|The Trusted Partner|This listing is|This feature is|This information|This service is|to collect or|to entities|to report any|To suppress Japanese|transmission of mass|UNITED STATES|United States|UNLIMITED|unsolicited advertising|Users may|Version 6|via e-mail|Visit AboutUs.org|when you|while believed|will use this|with many different|with no guarantee|We reserve the|whitelist|Whois|whois_guidanceyou agree|you agree|You may not)' tmp2 > tmp3
      # Remove lines starting with "*"
      sed '/^*/d' tmp3 > tmp4
      # Remove lines starting with "-"
@@ -1521,7 +1408,7 @@ case $choice in
      sed 's/: /:#####/g' tmp13 | column -s '#' -t -n > whois-domain
      rm tmp*
 
-     echo "     IP 		  (24/$total)"
+     echo "     IP 		  (21/$total)"
      curl --silent https://www.ultratools.com/tools/ipWhoisLookupResult?ipAddress=$domain > ultratools
      y=$(sed -e 's/^[ \t]*//' ultratools | grep -A1 '>IP Address' | grep -v 'IP Address' | grep -o -P '(?<=>).*(?=<)')
 
@@ -1553,7 +1440,7 @@ case $choice in
      rm ultratools
 
      echo
-     echo "dnsdumpster.com           (25/$total)"
+     echo "dnsdumpster.com           (22/$total)"
      wget -q https://dnsdumpster.com/static/map/$domain.png -O $home/data/$domain/assets/images/dnsdumpster.png
 
      # Generate a random cookie value
@@ -1569,13 +1456,13 @@ case $choice in
      rm tmp*
 
      echo
-     echo "email-format.com          (26/$total)"
+     echo "email-format.com          (23/$total)"
      curl --silent https://www.email-format.com/d/$domain/ > tmp
      grep -o [A-Za-z0-9_.]*@[A-Za-z0-9_.]*[.][A-Za-z]* tmp | tr '[A-Z]' '[a-z]' | sort -u > zemail-format
      rm tmp
 
      echo
-     echo "intodns.com               (27/$total)"
+     echo "intodns.com               (24/$total)"
      wget -q http://www.intodns.com/$domain -O tmp
      cat tmp | sed '1,32d' | sed 's/<table width="99%" cellspacing="1" class="tabular">/<center><table width="85%" cellspacing="1" class="tabular"><\/center>/g' | sed 's/Test name/Test/g' | sed 's/ <a href="feedback\/?KeepThis=true&amp;TB_iframe=true&amp;height=300&amp;width=240" title="intoDNS feedback" class="thickbox feedback">send feedback<\/a>//g' | sed 's/ background-color: #ffffff;//' | sed 's/<center><table width="85%" cellspacing="1" class="tabular"><\/center>/<table class="table table-bordered">/' | sed 's/<td class="icon">/<td class="inc-table-cell-status">/g' | sed 's/<tr class="info">/<tr>/g' | egrep -v '(Processed in|UA-2900375-1|urchinTracker|script|Work in progress)' | sed '/footer/I,+3 d' | sed '/google-analytics/I,+5 d' > tmp2
      cat tmp2 >> $home/data/$domain/pages/config.htm
@@ -1596,7 +1483,7 @@ case $choice in
      rm tmp*
 
      echo
-     echo "netcraft.com              (28/$total) bad"
+     echo "netcraft.com              (25/$total) bad"
      echo "     Actively working on alternative"
      # wget -q https://toolbar.netcraft.com/site_report?url=http://www.$domain -O tmp
 
@@ -1614,7 +1501,7 @@ case $choice in
      # echo '</html>' >> $home/data/$domain/pages/netcraft.htm
 
      echo
-     echo "ultratools.com            (29/$total)"
+     echo "ultratools.com            (26/$total)"
      x=0
 
      f_passive_axfr(){
@@ -1646,7 +1533,7 @@ case $choice in
      rm curl
 
      echo
-     echo "Registered Domains        (30/$total)"
+     echo "Registered Domains        (27/$total)"
      f_regdomain(){
      while read regdomain; do
           whois -H $regdomain 2>&1 | sed -e 's/^[ \t]*//' | sed 's/ \+ //g' | sed 's/: /:/g' > tmp5
@@ -1684,11 +1571,9 @@ case $choice in
      if grep -q 'There are 0 domains' tmp && grep -q 'There are 0 domains' tmp2; then
           rm tmp tmp2
           echo 'No Domains Found.' > tmp6
-          break
      elif ! [ -s tmp ] && ! [ -s tmp2 ]; then
           rm tmp tmp2
           echo 'No Domains Found.' > tmp6
-          break
 
      # Loop thru list of domains, gathering details about the domain
      elif grep -q 'paymenthash' tmp; then
@@ -1707,14 +1592,17 @@ case $choice in
 
      # Formatting & clean-up
      sort tmp4 | sed 's/111AAA--placeholder--/Domain,IP Address,Registration Email,Registration Org,Registrar,/' | grep -v 'Matches Found' > tmp6
-     grep '@' tmp6 | column -n -s ',' -t > registered-domains
+     grep '@' tmp6 | sed 's/LLC /LLC./g' | column -n -s ',' -t > registered-domains
      echo "Domains registered to $company using a corporate email." >> $home/data/$domain/data/registered-domains.htm
      echo >> $home/data/$domain/data/registered-domains.htm
      echo
 
      ##############################################################
 
-     cat z* | grep '@' | sort -u > emails
+     # Remove all empty files
+     find -type f -empty -exec rm {} +
+
+     cat z* | grep '@' | grep -v '^\.' | sort -u > emails
 
      cat z* | sed '/^[0-9]/!d' | column -t | awk '{print $2 " " $1}' | column -t | sort -k1 -u > sub2
 
@@ -1739,13 +1627,12 @@ case $choice in
 
      ##############################################################
 
-     echo
-     echo "recon-ng                  (31/$total)"
+     echo "recon-ng                  (28/$total)"
      echo
      echo "workspaces add $domain" > $discover/passive.rc
      echo "add companies" >> $discover/passive.rc
      echo "$companyurl" >> $discover/passive.rc
-     sed -i 's/%26/\&/g;s/%20/ /g;s/%2C/\,/g' $discover/passive.rc
+     sed -i 's/%26/\&/g; s/%20/ /g; s/%2C/\,/g' $discover/passive.rc
      echo "none" >> $discover/passive.rc
      echo "add domains" >> $discover/passive.rc
      echo "$domain" >> $discover/passive.rc
@@ -1770,7 +1657,7 @@ case $choice in
      ##############################################################
 
      grep "@$domain" /tmp/emails | awk '{print $2}' | egrep -v '(>|SELECT)' | sort -u > emails-recon
-     cat emails emails-recon | sort -u > emails-final
+     cat emails emails-recon | tr '[A-Z]' '[a-z]' | sort -u > emails-final
 
      grep '|' /tmp/names | egrep -iv '(_|aepohio|aepsoc|arin-notify|contact|netops|production)' | sed 's/|//g; s/^[ \t]*//; /^[0-9]/d; /^-/d' | tr '[A-Z]' '[a-z]' | sed 's/\b\(.\)/\u\1/g; s/iii/III/g; s/ii/II/g; s/Mca/McA/g; s/Mcb/McB/g; s/Mcc/McC/g; s/Mcd/McD/g; s/Mce/McE/g; s/Mcf/McF/g; s/Mcg/McG/g; s/Mci/McI/g; s/Mck/McK/g; s/Mcl/McL/g; s/Mcm/McM/g; s/Mcn/McN/g; s/Mcs/McS/g; s/[ \t]*$//' | sort -u > names-recon
 
@@ -1983,56 +1870,62 @@ case $choice in
      echo
      printf 'The supporting data folder is located at \x1B[1;33m%s\x1B[0m\n' $home/data/$domain/
      echo
-     #read -p "Press <return> to continue."
+     read -p "Press <return> to continue."
 
      ##############################################################
 
-     #f_runlocally
+     f_runlocally
 
-     #$web &
-     #sleep 4
-     #$web https://www.google.com/search?site=\&tbm=isch\&source=hp\&q=$companyurl%2Blogo &
-     #sleep 2
+     $web &
+     sleep 4
+     $web https://www.google.com/search?site=\&tbm=isch\&source=hp\&q=$companyurl%2Blogo &
+     sleep 2
+     $web https://$companyurl.s3.amazonaws.com &
+     sleep 2
 
      # File types
-     #$web https://www.google.com/#q=site%3A$domain+filetype%3Adoc+OR+filetype%3Adocx &
-     #sleep 2
-     ##$web https://www.google.com/#q=site%3A$domain+filetype%3Appt+OR+filetype%3Apptx &
-     #sleep 2
-     #$web https://www.google.com/#q=site%3A$domain+filetype%3Axls+OR+filetype%3Axlsx &
-     #sleep 2
-     #$web https://www.google.com/#q=site%3A$domain+filetype%3Atxt &
-     #sleep 2
+     $web https://www.google.com/#q=site%3A$domain+filetype%3Adoc+OR+filetype%3Adocx &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+filetype%3Appt+OR+filetype%3Apptx &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+filetype%3Axls+OR+filetype%3Axlsx &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+filetype%3Atxt &
+     sleep 2
 
-     #$web https://www.google.com/#q=site%3A$domain+inurl:admin &
-     #sleep 2
-     #$web https://www.google.com/#q=site%3A$domain+inurl:login &
-     #sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:admin &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+inurl:login &
+     sleep 2
 
-     #$web https://www.google.com/#q=site%3A$domain+%22index+of/%22+%22parent+directory%22 &
-     #sleep 2
-     #$web https://www.google.com/#q=site%3A$domain+%22internal+use+only%22 &
-     #sleep 2
+     $web https://www.google.com/#q=site%3A$domain+%22index+of/%22+%22parent+directory%22 &
+     sleep 2
+     $web https://www.google.com/#q=site%3A$domain+%22internal+use+only%22 &
+     sleep 2
 
-     #$web https://www.google.com/#q=site%3Apastebin.com+intext:%40$domain &
-     #sleep 2
-     #$web http://api.hackertarget.com/pagelinks/?q=$domain &
-     #sleep 2
+     $web https://www.google.com/#q=site%3Alinkedin.com%2Fin%20%22$company%22 & 
+     sleep 2
 
-     #$web https://dockets.justia.com/search?parties=%22$companyurl%22&cases=mostrecent &
-     #sleep 2
-     #$web http://www.reuters.com/finance/stocks/lookup?searchType=any\&search=$companyurl &
-     #sleep 2
-     #$web https://www.sec.gov/cgi-bin/browse-edgar?company=$companyurl\&owner=exclude\&action=getcompany &
-     #sleep 2
-     #$web https://www.ssllabs.com/ssltest/analyze.html?d=$domain\&hideResults=on\&latest &
-     #sleep 2
-     #$web $home/data/$domain/index.htm &
+     $web https://www.google.com/#q=site%3Apastebin.com+intext:%40$domain &
+     sleep 2
+     $web http://api.hackertarget.com/pagelinks/?q=$domain &
+     sleep 2
+
+     $web https://dockets.justia.com/search?parties=%22$companyurl%22&cases=mostrecent &
+     sleep 2
+     $web http://www.reuters.com/finance/stocks/lookup?searchType=any\&search=$companyurl &
+     sleep 2
+     $web https://www.sec.gov/cgi-bin/browse-edgar?company=$companyurl\&owner=exclude\&action=getcompany &
+     sleep 2
+     $web https://www.ssllabs.com/ssltest/analyze.html?d=$domain\&hideResults=on\&latest &
+     sleep 2
+     $web $home/data/$domain/index.htm &
      echo
      echo
- 
+     exit
+     ;;
 
-     #2)
+     2)
      clear
      f_banner
 
@@ -2046,7 +1939,8 @@ case $choice in
      echo "Usage: target.com"
      echo
      echo -n "Domain: "
-     #read domain
+     read domain
+
      # Check for no answer
      if [[ -z $domain ]]; then
           f_error
@@ -2062,7 +1956,7 @@ case $choice in
      # Number of tests
      total=11
 
-     companyurl=$( printf "%s\n" "$company" | sed 's/ /%20/g;s/\&/%26/g;s/\,/%2C/g' )
+     companyurl=$( printf "%s\n" "$company" | sed 's/ /%20/g; s/\&/%26/g; s/\,/%2C/g' )
 
      echo
      echo $medium
@@ -2105,14 +1999,13 @@ case $choice in
 
      echo
      echo "Fierce (~5 min)           (5/$total)"
-     #if [ -f /usr/share/fierce/hosts.txt ]; then
-     #     fierce -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
-     #fi
-	 fierce01 -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
+     if [ -f /usr/share/fierce/hosts.txt ]; then
+          fierce -dns $domain -wordlist /usr/share/fierce/hosts.txt -suppress -file tmp4
+     fi
 
      # PTF
      if [ -f /pentest/intelligence-gathering/fierce/hosts.txt ]; then
-          fierce01 -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
+          fierce -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
      fi
 
      sed -n '/Now performing/,/Subnets found/p' tmp4 | grep $domain | awk '{print $2 " " $1}' | column -t | sort -u > subdomains-fierce
@@ -2131,12 +2024,12 @@ case $choice in
      grep -E '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' tmp | egrep -v '(-|=|:|1.1.1.1|6.9.6.9|127.0.0.1)' | $sip > hosts
 
      echo
-     echo "Loadbalancing             (6/$total) Not today!"
-     #lbd $domain > tmp 2>/dev/null
+     echo "Loadbalancing             (6/$total)"
+     lbd $domain > tmp 2>/dev/null
      # Remove first 5 lines & clean up
-     #sed '1,5d' tmp | sed 's/DNS-Loadbalancing: NOT FOUND/DNS-Loadbalancing:\nNOT FOUND\n/g' | sed 's/\[Date\]: /\[Date\]:\n/g' | sed 's/\[Diff\]: /\[Diff\]:\n/g' > tmp2
+     sed '1,5d' tmp | sed 's/DNS-Loadbalancing: NOT FOUND/DNS-Loadbalancing:\nNOT FOUND\n/g' | sed 's/\[Date\]: /\[Date\]:\n/g' | sed 's/\[Diff\]: /\[Diff\]:\n/g' > tmp2
      # Replace the 10th comma with a new line & remove leading whitespace from each line
-     #sed 's/\([^,]*,\)\{9\}[^,]*,/&\n/g' tmp2 | sed 's/^[ \t]*//' | sed 's/, NOT/\nNOT/g' | grep -v 'NOT use' > loadbalancing
+     sed 's/\([^,]*,\)\{9\}[^,]*,/&\n/g' tmp2 | sed 's/^[ \t]*//' | sed 's/, NOT/\nNOT/g' | grep -v 'NOT use' > loadbalancing
 
      echo
      echo "Web Application Firewall  (7/$total)"
@@ -2185,7 +2078,7 @@ case $choice in
      echo "recon-ng                  (12/$total)"
      cp $discover/resource/recon-ng-active.rc $discover/
      sed -i "s/xxx/$companyurl/g" $discover/recon-ng-active.rc
-     sed -i 's/%26/\&/g;s/%20/ /g;s/%2C/\,/g' $discover/recon-ng-active.rc
+     sed -i 's/%26/\&/g; s/%20/ /g; s/%2C/\,/g' $discover/recon-ng-active.rc
      sed -i "s/yyy/$domain/g" $discover/recon-ng-active.rc
      recon-ng --no-check -r $discover/recon-ng-active.rc
 
@@ -2288,13 +2181,14 @@ case $choice in
      echo
      echo
      printf 'The supporting data folder is located at \x1B[1;33m%s\x1B[0m\n' $home/data/$domain/
+     echo
+     echo
 
-
-     #$web $home/data/$domain/index.htm &
-     #exit
+     $web $home/data/$domain/index.htm &
+     exit
      ;;
 
-     #3) f_main;;
+     3) f_main;;
      *) f_error;;
 esac
 }
