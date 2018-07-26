@@ -966,7 +966,7 @@ echo
 
  # PTF
  if [ -f /pentest/intelligence-gathering/fierce/hosts.txt ]; then
-	  /opt/discover/fierce01 -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
+	  /opt/disco_list/fierce01 -dns $domain -wordlist /pentest/intelligence-gathering/fierce/hosts.txt -suppress -file tmp4
  fi
 
  sed -n '/Now performing/,/Subnets found/p' tmp4 | grep $domain | awk '{print $2 " " $1}' | column -t | sort -u > subdomains-fierce
