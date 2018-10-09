@@ -209,6 +209,15 @@ domain=$line
  if [[ -z $domain ]]; then
 	  f_error
  fi
+echo $medium
+echo
+echo -n "Company: "
+read company
+
+# Check for no answer
+if [[ -z $company ]]; then
+  f_error
+fi
 clear
 f_banner
 echo -e "\x1B[1;34mRECON\x1B[0m"
@@ -225,10 +234,11 @@ echo
  echo $medium
  echo
  echo "Domain:  $domain"
+ echo "Company: $company"
  echo
  echo $medium
  echo
- company=$domain
+ company=$company
 
  if [[ -z $company ]]; then
 	  f_error
