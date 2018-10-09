@@ -3302,7 +3302,7 @@ fi
 if [[ -e $name/5683.txt ]]; then
      echo "     CoAP"
      nmap -iL $name/5683.txt -Pn -n -sU --open -p5683 --script-timeout 1m --script=coap-resources --min-hostgroup 100 -g $sourceport --scan-delay $delay > tmp
-     f_cleanup
+	 f_cleanup
      mv tmp4 $name/script-5683.txt
 fi
 
@@ -5222,25 +5222,16 @@ echo "10. Open multiple tabs in $browser"
 echo "11. Nikto"
 echo "12. SSL"
 echo
-<<<<<<< HEAD:disco_list.sh
-echo -e "\x1B[1;34mMISC\x1B[0m"
-echo "13. Crack WiFi"
-echo "14. Parse XML"
-echo "15. Generate a malicious payload"
-echo "16. Start a Metasploit listener"
-echo "17. Update"
-echo "18. Domain Batch"
-echo "19. Domain Batch scans Round Up"
-echo "20. Exit"
-
-=======
 echo -e "${BLUE}MISC${NC}"
 echo "13. Parse XML"
 echo "14. Generate a malicious payload"
 echo "15. Start a Metasploit listener"
 echo "16. Update"
 echo "17. Exit"
->>>>>>> upstream/master:discover.sh
+echo "18. Domain Batch"
+echo "19. Domain Batch scans Round Up"
+echo "20. Exit"
+
 echo
 echo -n "Choice: "
 read choice
@@ -5258,24 +5249,15 @@ case $choice in
      10) f_multitabs;;
      11) f_errorOSX; f_nikto;;
      12) f_ssl;;
-<<<<<<< HEAD:disco_list.sh
-     13) f_runlocally && $discover/crack-wifi.sh;;
-     14) f_parse;;
-     15) f_payload;;
-     16) f_listener;;
-     17) f_errorOSX; $discover/update.sh && exit;;
-     18) f_domainbatch;;
-     19) f_discoroundup;;
-	 20) clear && exit;;
-=======
      13) f_parse;;
      14) f_payload;;
      15) f_listener;;
      16) f_errorOSX; $discover/update.sh && exit;;
      17) clear && exit;;
->>>>>>> upstream/master:discover.sh
-     99) f_errorOSX; f_updates;;
-     *) f_error;;
+     18) f_domainbatch;;
+     19) f_discoroundup;;
+	 20) clear && exit;;
+
 esac
 }
 
