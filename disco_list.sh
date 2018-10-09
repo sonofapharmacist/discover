@@ -195,6 +195,14 @@ exit
 
 
 f_domainbatch(){
+echo -n "Company: "
+read company
+
+# Check for no answer
+if [[ -z $company ]]; then
+  f_error
+fi
+clear
 f_location
 for line in $(cat $location)
 do
@@ -214,10 +222,6 @@ domain=$line
  if [[ -z $domain ]]; then
 	  f_error
  fi
-echo $medium
-echo
-echo -n "Company: "
-read company
 
 # Check for no answer
 if [[ -z $company ]]; then
