@@ -3602,13 +3602,8 @@ f_metasploit(){
 echo
 echo $medium
 echo
-<<<<<<< HEAD:disco_list.sh
-echo -ne "\x1B[1;33mRun matching Metasploit\x1B[0m" #auxiliaries? (y/N) \x1B[0m
-#read msf
-=======
 echo -ne "${YELLOW}Run matching Metasploit auxiliaries? (y/N) ${NC}"
-read msf
->>>>>>> upstream/master:discover.sh
+#read msf
 
 f_run-metasploit
 
