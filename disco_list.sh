@@ -5207,7 +5207,7 @@ for l in $(cat $location); do
 	cat /root/data/$l/data/emails.htm >> tmp
 done
 
-cat tmp | sort -u >> $emails
+cat tmp | grep "[A-Za-z]@ho-chunk.com" | cut -d" " -f4 | sort -u >> $emails
 }
 
 ##############################################################################################################
