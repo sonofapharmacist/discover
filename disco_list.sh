@@ -5201,15 +5201,14 @@ read -e $location
 echo -n "Emails output location: "
 read -e $emails
 #echo >> $emails
-tmp=$emails+temp
 #tmp=stuff
-echo >> $tmp
+#echo >> $tmp
 
 for l in $(cat $location); do
-	cat /root/data/$l/data/emails.htm >> $tmp
+	cat /root/data/$l/data/emails.htm >> tmp
 done
 
-cat $tmp | sort -u >> $emails
+cat tmp | sort -u >> $emails
 }
 
 ##############################################################################################################
