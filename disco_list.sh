@@ -5200,9 +5200,9 @@ echo -n "Domains list location: "
 read -e $location
 echo -n "Emails output location: "
 read -e $emails
-echo "=======" > $emails
+echo >> $emails
 tmp=$emails+temp
-echo "=======" > $tmp
+echo >> $tmp
 
 for l in $(cat $location); do
 	cat /root/data/$l/data/emails.htm >> $tmp
