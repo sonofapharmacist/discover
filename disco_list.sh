@@ -5195,6 +5195,24 @@ echo "and the subdomains are available at $subdomains/subdomains.txt"
 }
 ##############################################################################################################
 
+f_emails(){
+echo -e "Domains list location: "
+read $location
+echo -e "Emails output location: "
+read $emails
+touch $emails
+tmp=$emails+temp
+
+
+for l in $(cat $location); do
+	cat /root/data/$l/data/emails.htm >> $tmp
+done
+
+sort -u $tmp > $emails
+}
+
+##############################################################################################################
+
 f_main(){
 clear
 f_banner
@@ -5229,7 +5247,8 @@ echo "16. Update"
 echo "17. Exit"
 echo "18. Domain Batch"
 echo "19. Domain Batch scans Round Up"
-echo "20. Exit"
+echo "20. Emails Round Up"
+echo "21. Exit"
 
 echo
 echo -n "Choice: "
@@ -5255,7 +5274,8 @@ case $choice in
      17) clear && exit;;
      18) f_domainbatch;;
      19) f_discoroundup;;
-	 20) clear && exit;;
+	 20) f_emails;;
+	 21) clear && exit;;
 
 esac
 }
