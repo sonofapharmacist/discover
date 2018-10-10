@@ -5196,10 +5196,10 @@ echo "and the subdomains are available at $subdomains/subdomains.txt"
 ##############################################################################################################
 
 f_emails(){
-echo -e "Domains list location: "
-read $location
-echo -e "Emails output location: "
-read $emails
+echo -n "Domains list location: "
+read -e $location
+echo -n "Emails output location: "
+read -e $emails
 touch $emails
 tmp=$emails+temp
 
