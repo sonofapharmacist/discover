@@ -5197,12 +5197,11 @@ echo "and the subdomains are available at $subdomains/subdomains.txt"
 
 f_emails(){
 echo -n "Domains list location: "
-read -e $location
+read -e location
 echo -n "Emails output location: "
-read -e $emails
-#echo >> $emails
-#tmp=stuff
-#echo >> $tmp
+read -e emails
+echo >> $emails
+#echo >> tmp
 
 for l in $(cat $location); do
 	cat /root/data/$l/data/emails.htm >> tmp
