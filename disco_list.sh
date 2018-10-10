@@ -5201,7 +5201,8 @@ read -e $location
 echo -n "Emails output location: "
 read -e $emails
 echo >> $emails
-tmp=$emails+temp
+#tmp=$emails+temp
+tmp=stuff
 echo >> $tmp
 
 for l in $(cat $location); do
